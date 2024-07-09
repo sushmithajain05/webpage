@@ -15,7 +15,7 @@
 <div id="home">
   
 <!-- Navbar -->
-<nav class="w3-top w3-bar w3-xlarge w3-wide w3-black w3-opacity-min">
+<nav class="nav1">
   <a href="#home" class="w3-bar-item w3-button">HOME</a>
   <a href="#menu" class="w3-bar-item w3-button">MENU</a>
   <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
@@ -24,34 +24,34 @@
 
 <!-- Header image -->
 <header style="height:800px;background-image: url('https://www.w3schools.com/w3css/img_pizza.jpg');background-size: cover;" class="w3-display-container w3-grayscale-min">
-  <div class="w3-display-bottomleft">
-    <span class="w3-tag w3-xlarge">Open from 10am to 12pm</span>
+  <div class="d1">
+    <span class="d2">Open from 10am to 12pm</span>
   </div>
-  <div class="w3-display-middle w3-center">
-    <span class="w3-text-white" style="font-size:100px">thin<br>CRUST PIZZA</span>
-    <p><a class="w3-button w3-xxlarge w3-black" href="#menu">Let me see the menu</a></p>
+  <div class="d3">
+    <span class="d4" style="font-size:100px">thin<br>CRUST PIZZA</span>
+    <p><a class="d5" href="#menu">Let me see the menu</a></p>
   </div>
 </header>
 
 <!-- Menu -->
-<div id="menu" class="w3-container w3-black w3-xxlarge w3-padding-64">
-  <h1 class="w3-center w3-jumbo w3-padding-32">THE MENU</h1>
-  <div class="w3-row w3-center w3-border w3-border-dark-grey">
-    <a href="#{{ active_menu.name }}"><div class="w3-third w3-red w3-padding-large">{{ active_menu.name }}</div></a>
+<div id="menu" class="d6">
+  <h1 class="d7">THE MENU</h1>
+  <div class="d8">
+    <a href="#{{ active_menu.name }}"><div class="d9">{{ active_menu.name }}</div></a>
     {% for menu in other_menus %}
-    <a href="#{{ menu.name }}"><div class="w3-third w3-hover-red w3-padding-large">{{ menu.name }}</div></a>
+    <a href="#{{ menu.name }}"><div class="d10">{{ menu.name }}</div></a>
     {% endfor %}
   </div>
-  <div id="pizza" class="w3-container w3-white w3-padding-32">
+  <div id="pizza" class="d11">
     {% for dish in active_menu.dish_set.all %}
-    <h1><b>{{ dish.name }}</b> {% if dish.tag %}<span class="w3-tag {% if dish.tag == 'hot!' %}w3-red{% elif dish.tag == 'special' %}w3-orange{% else %}w3-grey{% endif %} w3-round">{{ dish.tag }}</span>{% endif %}<span class="w3-right w3-tag w3-dark-grey w3-round">${{ dish.price }}</span></h1>
-    <p class="w3-text-grey">{{ dish.recipe }}</p>
+    <h1><b>{{ dish.name }}</b> {% if dish.tag %}<span class="d12">{{ dish.tag }}</span>{% endif %}<span class="w3-right w3-tag w3-dark-grey w3-round">${{ dish.price }}</span></h1>
+    <p class="d13">{{ dish.recipe }}</p>
     <hr />
     {% endfor %}
   </div>
   {% for menu in other_menus %}
-  <h1 id="{{menu.name}}" class="w3-center w3-jumbo w3-padding-32">{{ menu.name }}</h1>
-  <div class="w3-container w3-white w3-padding-32">
+  <h1 id="{{menu.name}}" class="d14">{{ menu.name }}</h1>
+  <div class="d15">
     {% for dish in menu.dish_set.all %}
     <h1><b>{{ dish.name }}</b> {% if dish.tag %}<span class="w3-tag {% if dish.tag == 'hot!' %}w3-red{% elif dish.tag == 'special' %}w3-orange{% else %}w3-grey{% endif %} w3-round">{{ dish.tag }}</span>{% endif %} <span class="w3-right w3-tag w3-dark-grey w3-round">${{ dish.price }}</span></h1>
     <p class="w3-text-grey">{{ dish.recipe }}</p>
