@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Restaurant</title>
+  <link rel="stylesheet" type="text/css" href="https://w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+  <style type="text/css">
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif;}
+  </style>
+</head>
+<body>
+<!-- Start Content -->
+<div id="home">
+  
+<!-- Navbar -->
+<nav class="w3-top w3-bar w3-xlarge w3-wide w3-black w3-opacity-min">
+  <a href="#home" class="w3-bar-item w3-button">HOME</a>
+  <a href="#menu" class="w3-bar-item w3-button">MENU</a>
+  <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+  <a href="#contact" class="w3-bar-item w3-button">CONTACT</a>
+</nav>
+
+<!-- Header image -->
+<header style="height:800px;background-image: url('https://www.w3schools.com/w3css/img_pizza.jpg');background-size: cover;" class="w3-display-container w3-grayscale-min">
+  <div class="w3-display-bottomleft">
+    <span class="w3-tag w3-xlarge">Open from 10am to 12pm</span>
+  </div>
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-white" style="font-size:100px">thin<br>CRUST PIZZA</span>
+    <p><a class="w3-button w3-xxlarge w3-black" href="#menu">Let me see the menu</a></p>
+  </div>
+</header>
+
+<!-- Menu -->
+<div id="menu" class="w3-container w3-black w3-xxlarge w3-padding-64">
+  <h1 class="w3-center w3-jumbo w3-padding-32">THE MENU</h1>
+  <div class="w3-row w3-center w3-border w3-border-dark-grey">
+    <a href="#{{ active_menu.name }}"><div class="w3-third w3-red w3-padding-large">{{ active_menu.name }}</div></a>
+    {% for menu in other_menus %}
+    <a href="#{{ menu.name }}"><div class="w3-third w3-hover-red w3-padding-large">{{ menu.name }}</div></a>
+    {% endfor %}
+  </div>
+  <div id="pizza" class="w3-container w3-white w3-padding-32">
+    {% for dish in active_menu.dish_set.all %}
+    <h1><b>{{ dish.name }}</b> {% if dish.tag %}<span class="w3-tag {% if dish.tag == 'hot!' %}w3-red{% elif dish.tag == 'special' %}w3-orange{% else %}w3-grey{% endif %} w3-round">{{ dish.tag }}</span>{% endif %}<span class="w3-right w3-tag w3-dark-grey w3-round">${{ dish.price }}</span></h1>
+    <p class="w3-text-grey">{{ dish.recipe }}</p>
+    <hr />
+    {% endfor %}
+  </div>
+  {% for menu in other_menus %}
+  <h1 id="{{menu.name}}" class="w3-center w3-jumbo w3-padding-32">{{ menu.name }}</h1>
+  <div class="w3-container w3-white w3-padding-32">
+    {% for dish in menu.dish_set.all %}
+    <h1><b>{{ dish.name }}</b> {% if dish.tag %}<span class="w3-tag {% if dish.tag == 'hot!' %}w3-red{% elif dish.tag == 'special' %}w3-orange{% else %}w3-grey{% endif %} w3-round">{{ dish.tag }}</span>{% endif %} <span class="w3-right w3-tag w3-dark-grey w3-round">${{ dish.price }}</span></h1>
+    <p class="w3-text-grey">{{ dish.recipe }}</p>
+    <hr />
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+
+<!-- About -->
+<div id="about" class="w3-container w3-red w3-grayscale w3-xlarge w3-padding-64">
+  <h1 class="w3-center w3-jumbo">About</h1>
+  <p>The Pizza Restaurant was founded in blabla by Mr. Italiano in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  <p><strong>The Chef?</strong> Mr. Italiano himself <img src="https://www.w3schools.com/w3images/chef.jpg" style="width:150px" alt="Chef" class="w3-circle w3-right"></p>
+  <p>We are proud of our interriors.</p>
+  <p class="w3-padding-16 w3-stretch"><img src="https://w3schools.com/w3css/img_restaurant.jpg" style="width: 100%"></p>
+  <h1><b>Opening Hours</b></h1>
+  <div class="w3-row">
+    <div class="w3-half">
+      <p>Mon &amp; Tue CLOSED</p>
+      <p>Wednesday 10:00 - 24:00</p>
+      <p>Thursday 10:00 - 24:00</p>
+    </div>
+    <div class="w3-half">
+      <p>Friday 10:00 - 12:00</p>
+      <p>Saturday 10:00 - 23:00</p>
+      <p>Sunday Closed</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact -->
+<img id="contact" src="https://w3schools.com/w3css/map.jpg" class="w3-image w3-grayscale" style="width: 100%;" />
+<div class="w3-container w3-blue-grey w3-grayscale-min w3-xlarge w3-paddind-top-32">
+  <h1 class="w3-center w3-jumbo">Contact</h1>
+  <p>Find us at some [address] or call us at 05050515-122330</p>
+  <p>We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste.</p>
+  <p class="w3-xxlarge"><b>Reserve</b> a table, ask for today's special or just send us a message:</p>
+  <form name="reservation" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>{{field}}</p>
+    {% endfor %}
+    <p><button type="submit" class="w3-button w3-light-grey w3-block">SEND MESSAGE</button></p>
+  </form>
+</div>
+
+<!-- End Content -->
+</div>
+
+<script type="text/javascript">
+  var form = document.forms['reservation'];
+  for (let i = 1; i < form.length - 1; i++) {
+    form[i].className += 'w3-input w3-padding-16 w3-border'
+  }
+  form[1].placeholder = "Name"
+  form[2].placeholder = "How many people"
+  form[3].placeholder = "Date and time"
+  form[3].type = 'datetime-local'
+  form[4].placeholder = "Message \\ Special requirement"
+
+  form.addEventListener('submit', () => {
+    alert('Your Reservation Was Successfully Sent')
+  })
+</script>
+</body>
+</html>
